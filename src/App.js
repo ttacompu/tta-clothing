@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import Homepage from "./pages/hompage/homepage.component";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import ShopPage from "./pages/shop/shop.component";
 import Header from "./components/header/header.component";
 import SignPage from "./pages/signpage/signpage.component";
@@ -27,18 +27,9 @@ class App extends React.Component {
             id: snapShot.id,
             ...snapShot.data(),
           });
-
-         /* this.setState({
-            currentUser: {
-              id: snapShot.id,
-              ...snapShot.data()
-            }
-          })*/
-
         });
       } else {
         setUser(userAuth);
-        //this.setState({ currentUser: userAuth });
       }
 
     });
@@ -48,7 +39,7 @@ class App extends React.Component {
     this.unsubscribFromAuth();
   }
   render() {
-    debugger;
+    
     return (
       <div className="App">
         <Header currentUser={this.state.currentUser}   />
@@ -56,15 +47,16 @@ class App extends React.Component {
         <Switch>
           <Route exact={true} path="/" component={Homepage}></Route>
           <Route path="/shop" component={ShopPage}></Route>
-          <Route path="/sign" component={SignPage}></Route>
+          <Route exact={true} path="/sign"  render={()=> this.props.currentUser  ? (<Redirect to="/" />) : (<SignPage />) }></Route>
         </Switch>
       </div>
     );
   }
 }
 
+const mapStateToProps =(state) => ({ currentUser : state.user.currentUser})
 const dispatchToProps = (dispatch) => ({ setUser : user => dispatch(setUser(user)) });
 
 //export default  App;
 
-export default connect(null, dispatchToProps)(App);
+export default connect(mapStateToProps, dispatchToProps)(App);
