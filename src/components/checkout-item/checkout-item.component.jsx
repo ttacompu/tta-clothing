@@ -23,7 +23,7 @@ const CheckoutItem = ({
         </div>
       </span>
       <span className="price">{price}</span>
-      <div className="remove-button" onClick={() => clickHandler(id)}>
+      <div className="remove-button" onClick={() => clickHandler({id})}>
         &#10005;
       </div>
     </div>

@@ -16,9 +16,8 @@ export const addToCart = (items, newItem) => {
   }
 };
 
-export const removeFromCart = (items, { id }) => {
-  return items.filter((x) => x.id !== id);
-};
+export const removeFromCart = (items, { id }) => items.filter((x) => x.id !== id);
+
 
 export const decreaseFromCart = (items, { id, quantity }) => {
   if (quantity === 1) {
