@@ -8,9 +8,9 @@ import {
 } from "../../redux/cart/cart.selectors";
 import CheckoutItem from "../../components/checkout-item/checkout-item.component";
 import { removeItemFromCart } from "../../redux/cart/cart.action";
+import StripeCheckoutButton from "../../components/stripe-button/stripe-button.component";
 
 const CheckoutPage = ({ cartItems, total, removeItemFromCart }) => {
-    
   return (
     <div className="checkout-page">
       <div className="checkout-header">
@@ -37,9 +37,11 @@ const CheckoutPage = ({ cartItems, total, removeItemFromCart }) => {
           clickHandler={removeItemFromCart}
         />
       ))}
-      <div className="total">
+      <div className="total"> 
         <span>TOTAL : ${total}</span>
       </div>
+
+      <StripeCheckoutButton price={total} />
     </div>
   );
 };
