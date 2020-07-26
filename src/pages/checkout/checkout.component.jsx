@@ -1,5 +1,11 @@
 import React from "react";
-import "./checkout.styles.scss";
+//import "./checkout.styles.scss";
+import {
+  CheckoutPageContainer,
+  CheckoutHeaderContainer,
+  HeaderContainer,
+  TotalContainer,
+} from "./checkout.styles";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import {
@@ -12,24 +18,26 @@ import StripeCheckoutButton from "../../components/stripe-button/stripe-button.c
 
 const CheckoutPage = ({ cartItems, total, removeItemFromCart }) => {
   return (
-    <div className="checkout-page">
-      <div className="checkout-header">
-        <div className="header-block">
+    <CheckoutPageContainer>
+      <CheckoutHeaderContainer>
+        <HeaderContainer>
           <span>Product</span>
-        </div>
-        <div className="header-block">
+        </HeaderContainer>
+
+        <HeaderContainer>
           <span>Description</span>
-        </div>
-        <div className="header-block">
+        </HeaderContainer>
+        <HeaderContainer>
           <span>Quantity</span>
-        </div>
-        <div className="header-block">
+        </HeaderContainer>
+        <HeaderContainer>
           <span>Price</span>
-        </div>
-        <div className="header-block">
+        </HeaderContainer>
+        <HeaderContainer>
           <span>Remove</span>
-        </div>
-      </div>
+        </HeaderContainer>
+      </CheckoutHeaderContainer>
+
       {cartItems.map((item) => (
         <CheckoutItem
           key={item.id}
@@ -37,12 +45,11 @@ const CheckoutPage = ({ cartItems, total, removeItemFromCart }) => {
           clickHandler={removeItemFromCart}
         />
       ))}
-      <div className="total"> 
+      <TotalContainer>
         <span>TOTAL : ${total}</span>
-      </div>
-
+      </TotalContainer>
       <StripeCheckoutButton price={total} />
-    </div>
+    </CheckoutPageContainer>
   );
 };
 
