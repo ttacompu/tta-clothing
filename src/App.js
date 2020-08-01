@@ -7,12 +7,12 @@ import Header from "./components/header/header.component";
 import SignPage from "./pages/signpage/signpage.component";
 import CheckoutPage from "./pages/checkout/checkout.component"
 
-import { auth, createUserProfileDocument } from "./firebase/firebase-utils";
+import { auth, createUserProfileDocument} from "./firebase/firebase-utils";
 import { connect } from "react-redux";
 import { setUser } from "./redux/user/user.action";
 
 import {createStructuredSelector} from 'reselect';
-import {selectCurrentUser } from './redux/user/user.selectors'
+import {selectCurrentUser } from './redux/user/user.selectors';
 
 
 
@@ -62,7 +62,10 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps =() => createStructuredSelector({currentUser : selectCurrentUser });
+const mapStateToProps =() => createStructuredSelector({
+  currentUser : selectCurrentUser
+
+});
 const dispatchToProps = (dispatch) => ({ setUser : user => dispatch(setUser(user)) });
 
 //export default  App;
