@@ -13,6 +13,7 @@ import {
 
 class ShopPage extends React.Component {
   unsubscribeFromSnapShot = null;
+  state ={ loading : true};
 
   componentDidMount() {
     const {updateStore} = this.props;
@@ -20,19 +21,21 @@ class ShopPage extends React.Component {
     const collectionRef = firestore.collection("collections");
     collectionRef.onSnapshot(async (snapshot) => {
       updateStore(convertCollectionsSnapShotToMap(snapshot));
+      this.setState({loading : false});
     });
   }
   render() {
     const CollectionOverViewWithSpinner = WithSpinner(CollectionOverview);
     const CollectionPageWithSpinner = WithSpinner(CollectionPage);
     const { match } = this.props;
+    const {loading}= this.state;
 
     return (
       <div className="shop-page">
-        <Route exact path={`${match.path}`} component={CollectionOverViewWithSpinner} />
+        <Route exact path={`${match.path}`} render={ (props) => <CollectionOverViewWithSpinner isLoading={loading} {...props} ></CollectionOverViewWithSpinner>  } />
         <Route
           path={`${match.path}/:collectionId`}
-          component={CollectionPageWithSpinner}
+          render={(props) => <CollectionPageWithSpinner isLoading={loading} {...props} ></CollectionPageWithSpinner>}
         />
       </div>
     );
