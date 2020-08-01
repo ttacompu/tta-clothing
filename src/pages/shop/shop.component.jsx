@@ -19,10 +19,15 @@ class ShopPage extends React.Component {
     const {updateStore} = this.props;
 
     const collectionRef = firestore.collection("collections");
-    collectionRef.onSnapshot(async (snapshot) => {
+    collectionRef.get().then((snapshot) => {
       updateStore(convertCollectionsSnapShotToMap(snapshot));
       this.setState({loading : false});
     });
+
+    /*collectionRef.onSnapshot(async (snapshot) => {
+      updateStore(convertCollectionsSnapShotToMap(snapshot));
+      this.setState({loading : false});
+    });*/
   }
   render() {
     const CollectionOverViewWithSpinner = WithSpinner(CollectionOverview);
