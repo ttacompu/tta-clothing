@@ -11,6 +11,8 @@ export const selectShopCollection = createSelector(
 export const selectCollectionForPreview = createSelector([selectShop], 
   (shop) => Object.keys(shop.collections).map(key => shop.collections[key]));
 
+export const selectIsFetching = createSelector([selectShop], (shop) => shop.isFetching)
+
 export const getItemsByCollectionId =memoize((collectionId) => {
   return createSelector([selectShopCollection], (collections) => {
     return collections[collectionId];
